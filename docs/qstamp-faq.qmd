@@ -1,0 +1,189 @@
+---
+title: "Stamp FAQ"
+filters:
+  - stamp
+---
+
+## What is the Stamp extension?
+
+Stamp is a Quarto extension that automatically adds system, session, and document information to your Quarto documents. It helps with reproducibility by documenting the environment in which your document was created.
+
+## What information can Stamp provide?
+
+Stamp can provide several categories of information about how the document was rendered:
+
+- System Information (OS, Lua version)
+- Quarto Environment Variables
+- Document Properties
+- Project Properties 
+- Session Information (versions of Quarto, Pandoc, R, Python)
+- Extension Information
+
+### How do I install Stamp?
+
+You can install Stamp using Quarto's extension mechanism:
+
+```bash
+quarto add coatless-quarto/stamp
+```
+
+## How do I enable Stamp in my document?
+
+Add the extension to your YAML frontmatter:
+
+```yaml
+---
+title: "My Document"
+format: html
+filters:
+  - stamp
+---
+```
+
+## What are the different information levels available?
+
+Stamp supports three levels of information:
+
+- `minimal`: Shows only system and session information
+- `full`: Shows all available information categories
+- Default is `minimal` if not specified
+
+We will likely add more levels in the future.
+
+## How do I configure what information is shown?
+
+You can configure Stamp using the `stamp` key in your YAML frontmatter:
+
+```yaml
+---
+stamp:
+  level: minimal  # or 'full'
+  sections:       # Add specific sections
+    - system
+    - session
+    - extensions
+---
+```
+
+## Can I control where the information appears?
+
+Yes, you can control placement using the `placement` option:
+
+- `bottom` (default): Places information at the end of the document
+- `top`: Places information at the beginning of the document
+- `custom`: Places information at a specific div location
+
+For custom placement, use:
+
+```yaml
+---
+stamp:
+  placement: custom
+  placement-id: my-custom-location
+---
+
+::: {#my-custom-location}
+:::
+```
+
+:::{.callout-note}
+When using custom placement, the div with `placement-id` will be completely replaced by the stamp information div (which has the ID `document-information`). For example, with the above configuration:
+
+Before rendering:
+
+```md
+:::{#my-custom-location}
+:::
+```
+
+After rendering:
+
+```html
+:::{#document-information}
+<!-- stamp information here -->
+:::
+```
+:::
+
+## How do I add specific sections?
+
+You can add specific sections using the `sections` option:
+
+```yaml
+stamp:
+  sections:
+    - system
+    - environment
+    - extensions
+```
+
+## Can I combine the level setting with additional sections?
+
+Yes, you can use both `level` and `sections`. By default, sections are added to the base level. Use `mode: replace` to override instead of add:
+
+```yaml
+stamp:
+  level: minimal
+  sections:
+    - extensions
+  mode: replace  # Only shows extensions
+```
+
+## Why isn't version information showing for R/Python?
+
+Version information requires R and/or Python to be installed and accessible from the command line. If you see "not installed", check that:
+
+1. The software is installed
+2. It's available in your system PATH
+3. The `--version` command works in your terminal
+
+## Why are some environment variables showing as "not set"?
+
+This is normal if those Quarto environment variables aren't configured on your system. The extension will show `"not set"` for any undefined variables.
+
+## How can I verify the extension is working?
+
+The extension adds a div with the ID `"document-information"`. You can check your rendered document's HTML to verify it's present. All information sections also have specific CSS classes for styling.
+
+
+## Can I style the output?
+
+Yes, the extension provides both class and ID-based styling hooks:
+
+Common class for all sections:
+
+- `.quarto-stamp-section`: Applied to all stamp information sections
+
+Specific IDs for each table:
+
+- `#system-info-table`: System information table
+- `#quarto-env-vars`: Quarto environment variables table
+- `#quarto-doc-props`: Document properties table
+- `#quarto-project-props`: Project properties table
+- `#session-info-table`: Session information table
+- `#extensions-table`: Extensions table
+
+Example CSS:
+
+```css
+/* Style all stamp sections */
+.quarto-stamp-section {
+  margin: 2em 0;
+}
+
+/* Style a specific table */
+#system-info-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+```
+
+The entire stamp information section is contained within a div with ID `document-information`.
+
+## Does it work with all Quarto formats?
+
+Yes, Stamp works with all Quarto output formats including HTML, PDF, and Word. The information is formatted appropriately for each output format.
+
+## Can I use Stamp programmatically?
+
+Yes, you can use Stamp as part of automated document generation workflows. The extension respects all configuration options when run programmatically through Quarto.

@@ -1,0 +1,28 @@
+---
+title: "Stamp Example"
+stamp: 
+  level: minimal              # Show bare minimum sections
+  placement: custom           # Place in custom location
+  placement-id: a-stamp-id    # Custom placement ID
+filters:
+  - stamp
+---
+
+For this document, we demonstrate how to use the `{quarto-stamp}` extension to add information regarding how Quarto rendered the document to the document itself.  
+
+We're using the following options:
+
+- `level: minimal` to show only the bare minimum sections
+- `placement: custom` to place the stamp anywhere in the document
+- `placement-id: a-stamp-id` to specify a custom placement ID
+
+# A section before the stamp
+
+Content before the stamp.
+
+:::{#a-stamp-id}
+:::
+
+# Another section after the stamp
+
+Extra content after the stamp.

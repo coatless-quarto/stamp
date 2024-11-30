@@ -1,0 +1,17 @@
+---
+title: "Release Notes"
+date: "02-24-2024"
+date-modified: last-modified
+engine: markdown
+format: 
+  html:
+    toc: true
+---
+
+# 0.0.0-dev.1: ?? (??-??-????)
+
+## Features
+
+- Embed Quarto render information in your documents with the `{quarto-stamp}` extension.
+- Place the stamp by specifying `placement` with either: `"top"` (default), `"bottom"`, or a `"custom"` location within the document.
+- Customize the information shown by specifying the `level` and `sections` options in the YAML front matter.
