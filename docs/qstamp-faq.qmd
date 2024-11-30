@@ -21,11 +21,14 @@ Stamp can provide several categories of information about how the document was r
 
 ### How do I install Stamp?
 
-You can install Stamp using Quarto's extension mechanism:
+You can install Stamp using Quarto's by running the following command in Terminal within Quarto project directory:
 
 ```bash
 quarto add coatless-quarto/stamp
 ```
+
+This will install the extension under the `_extensions` subdirectory. If you're using version control, you will want to check in this directory.
+
 
 ## How do I enable Stamp in my document?
 
