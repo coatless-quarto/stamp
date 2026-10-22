@@ -2,13 +2,13 @@ project:
   type: website
 
 website:
-  title: "colab"
+  title: "stamp"
   reader-mode: true
   repo-url: https://github.com/coatless-quarto/stamp/
   repo-actions: [edit, issue]
   sidebar:
     logo: "TBA"
-    logo-alt: "A hexagon logo for the colab extension."
+    logo-alt: "A hexagon logo for the stamp extension."
     style: "floating"
     search: true
     tools:

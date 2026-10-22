@@ -71,7 +71,7 @@ stamp:
 
 | Option         | Values                                                                            | Default                | Description                                             |
 |----------------|-----------------------------------------------------------------------------------|------------------------|---------------------------------------------------------|
-| `level`        | `minimal`, `full`, `default`                                                      | `minimal`              | Sets the base level of information to include           |
+| `level`        | `minimal`, `full`, `default` (same as `minimal`)                                  | `minimal`              | Sets the base level of information to include           |
 | `placement`    | `bottom`, `top`, `custom`                                                         | `bottom`               | Controls where the information appears in the document  |
 | `placement-id` | any string                                                                        | `document-information` | ID of the div to replace when using custom placement    |
 | `sections`     | Array of: `system`, `environment`, `document`, `project`, `session`, `extensions` | none                   | Additional sections to include beyond the level setting |
@@ -84,8 +84,8 @@ The extension can include the following sections:
 
 - **System Information**: OS and Lua version
 - **Quarto Environment Variables**: QUARTO_ROOT, QUARTO_SHARE_PATH, QUARTO_BIN_PATH
-- **Document Properties**: Input file, output file, format, render tools
-- **Project Properties**: Directory, output directory, render tools
+- **Document Properties**: Input file, output file, format
+- **Project Properties**: Directory, output directory
 - **Session Information**: Versions of Quarto, Pandoc, R, and Python
 - **Extensions**: List of installed Quarto extensions with versions
 
@@ -93,8 +93,10 @@ The extension can include the following sections:
 
 The extension supports two predefined information levels:
 
-- **minimal** (default): Includes system and session information
+- **minimal** (default): Includes system, session, and extensions information
 - **full**: Includes all available sections
+
+`level: default` is the same as `level: minimal`.
 
 ## Customizing Section Display
 
@@ -108,8 +110,14 @@ stamp:
     - environment
     - extensions
   mode: add
+---
+```
 
-  # Or replace with only specified sections
+Or replace the level's sections with only the ones you list:
+
+```yaml
+---
+stamp:
   sections:
     - system
     - extensions
@@ -140,8 +148,8 @@ stamp:
 
 ## Acknowledgements
 
-We would like to thank the developers of the `tinyyaml` library for providing a simple and efficient way to parse YAML front matter in Lua. Specifically, we would like to thank the maintainer of the fork, [`@api7`](https://https://github.com/api7/lua-tinyyaml), and the author of the original implementation [`@peposso`](https://github.com/peposso/lua-tinyyaml).
-The `tinyyaml` library is available under the MIT license and can be found at 
+We would like to thank the developers of the `tinyyaml` library for providing a simple and efficient way to parse YAML front matter in Lua. Specifically, we would like to thank the maintainer of the fork, [`@api7`](https://github.com/api7/lua-tinyyaml), and the author of the original implementation [`@peposso`](https://github.com/peposso/lua-tinyyaml).
+The `tinyyaml` library is available under the MIT license and can be found at <https://github.com/api7/lua-tinyyaml>.
 
 ### Notes
 

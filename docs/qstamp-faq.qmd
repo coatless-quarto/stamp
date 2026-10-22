@@ -45,11 +45,12 @@ filters:
 
 ## What are the different information levels available?
 
-Stamp supports three levels of information:
+Stamp supports two levels of information:
 
-- `minimal`: Shows only system and session information
+- `minimal`: Shows system, session, and extensions information
 - `full`: Shows all available information categories
-- Default is `minimal` if not specified
+
+If you don't set `level`, or set `level: default`, Stamp uses `minimal`.
 
 We will likely add more levels in the future.
 
@@ -134,7 +135,7 @@ stamp:
 
 ## Why isn't version information showing for R/Python?
 
-Version information requires R and/or Python to be installed and accessible from the command line. If you see "not installed", check that:
+Version information requires R and/or Python to be installed and accessible from the command line. Stamp runs `R --version` and `python --version`; it does not look for `python3`. If you see "not installed", check that:
 
 1. The software is installed
 2. It's available in your system PATH
@@ -151,37 +152,37 @@ The extension adds a div with the ID `"document-information"`. You can check you
 
 ## Can I style the output?
 
-Yes, the extension provides both class and ID-based styling hooks:
+Yes. The entire stamp is contained within a div with ID `document-information`, and each section and its table have their own classes:
 
-Common class for all sections:
-
-- `.quarto-stamp-section`: Applied to all stamp information sections
-
-Specific IDs for each table:
-
-- `#system-info-table`: System information table
-- `#quarto-env-vars`: Quarto environment variables table
-- `#quarto-doc-props`: Document properties table
-- `#quarto-project-props`: Project properties table
-- `#session-info-table`: Session information table
-- `#extensions-table`: Extensions table
+| Section | Section class | Table class |
+|---------|---------------|-------------|
+| System Information | `.system-info` | `.system-info-table` |
+| Quarto Environment Variables | `.quarto-env-info` | `.quarto-env-vars` |
+| Quarto Document Properties | `.quarto-doc-info` | `.quarto-doc-props` |
+| Quarto Project Properties | `.quarto-project-info` | `.quarto-project-props` |
+| Session Information | `.session-info` | `.session-info-table` |
+| Extensions | `.extensions-info` | `.extensions-table` |
 
 Example CSS:
 
 ```css
-/* Style all stamp sections */
-.quarto-stamp-section {
+/* Style all stamp tables */
+#document-information table {
   margin: 2em 0;
 }
 
 /* Style a specific table */
-#system-info-table {
+.system-info-table {
   width: 100%;
   border-collapse: collapse;
 }
 ```
 
-The entire stamp information section is contained within a div with ID `document-information`.
+## Does the stamp include anything private?
+
+It can. The environment, document, and project sections show absolute paths from the computer that rendered the document, such as `/Users/<name>/projects/report/report.qmd`, which can reveal your user name and folder layout. These sections only appear with `level: full` or when you add them with `sections`. The default `minimal` level shows the operating system, Lua version, software versions, and installed extensions, without paths.
+
+Check the stamp before you publish a document rendered with `level: full`.
 
 ## Does it work with all Quarto formats?
 
