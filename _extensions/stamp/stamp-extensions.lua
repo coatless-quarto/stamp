@@ -15,41 +15,54 @@ local stamp_utils = require("stamp-utils")
 ---@field get_extensions_section fun(): pandoc.Div
 local stamp_extensions = {}
 
--- Scans filesystem for Quarto extension configuration files and collects their information
+-- Lists a directory's entries, or nothing if it does not exist
+---@param dir string Directory to list
+---@return string[] Entry names
+local function list_dir(dir)
+    local ok, entries = pcall(pandoc.system.list_directory, dir)
+    return ok and entries or {}
+end
+
+-- Scans the _extensions folders next to the document and at the project
+-- root for Quarto extension configuration files and collects their information
 ---@return table<string, Extension> Table mapping extension names to their information
 function stamp_extensions.get_extension_info()
     ---@type table<string, Extension>
     local exts = {}
-    -- Patterns to match different extension file locations
-    -- Single-level: _extensions/extension-name/_extension.yml
-    -- Two-level: _extensions/publisher/extension-name/_extension.yml
-    local patterns = {
-        "_extensions/([^/]+)/_extension.yml",
-        "_extensions/([^/]+)/([^/]+)/_extension.yml"
-    }
-    
+
     -- Process a single extension configuration file
-    ---@param file string Path to extension file
-    ---@param match string[] Captured pattern matches
-    local function process_file(file, match)
-        local info = stamp_utils.read_yaml_file(file)
-        if info then
-            local location = (#match == 1) and "local" or (match[1] .. "/" .. match[2])
-            local ext_name = match[#match]
+    ---@param dir string Extension directory that may hold _extension.yml
+    ---@param ext_name string Extension name
+    ---@param location string "local" or "publisher/extension-name"
+    ---@return boolean found Whether dir holds an extension
+    local function process_dir(dir, ext_name, location)
+        local info = stamp_utils.read_yaml_file(pandoc.path.join({dir, "_extension.yml"}))
+        if info and not exts[ext_name] then
             exts[ext_name] = {
                 info = info,
                 location = location
             }
         end
+        return info ~= nil
     end
-    
-    -- Find and process all extension configuration files
-    for path in io.popen('find _extensions -follow -name "_extension.yml"'):lines() do
-        for _, pattern in ipairs(patterns) do
-            local matches = {path:match(pattern)}
-            if #matches > 0 then
-                process_file(path, matches)
-                break
+
+    -- Search the document's directory first, then the project root
+    local roots = { pandoc.path.directory(quarto.doc.input_file) }
+    if quarto.project.directory and
+       pandoc.path.normalize(quarto.project.directory) ~= pandoc.path.normalize(roots[1]) then
+        table.insert(roots, quarto.project.directory)
+    end
+
+    -- Single-level: _extensions/extension-name/_extension.yml
+    -- Two-level: _extensions/publisher/extension-name/_extension.yml
+    for _, root in ipairs(roots) do
+        local ext_dir = pandoc.path.join({root, "_extensions"})
+        for _, entry in ipairs(list_dir(ext_dir)) do
+            local entry_dir = pandoc.path.join({ext_dir, entry})
+            if not process_dir(entry_dir, entry, "local") then
+                for _, name in ipairs(list_dir(entry_dir)) do
+                    process_dir(pandoc.path.join({entry_dir, name}), name, entry .. "/" .. name)
+                end
             end
         end
     end
