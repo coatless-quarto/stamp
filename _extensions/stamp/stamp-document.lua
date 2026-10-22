@@ -90,16 +90,21 @@ function stamp_document.place_info_div(doc)
     -- Create the information div
     local info_div = stamp_document.create_info_div(meta)
     
-    -- Handle custom placement - looks for div with specific ID
+    -- Handle custom placement - looks for div with specific ID, at any depth
     if placement == "custom" then
-        for i, block in ipairs(doc.blocks) do
-            if block.t == "Div" and block.attr.identifier == placement_id then
-                doc.blocks[i] = info_div
-                return doc
+        local placed = false
+        doc.blocks = doc.blocks:walk({
+            Div = function(div)
+                if not placed and div.identifier == placement_id then
+                    placed = true
+                    return info_div
+                end
             end
-        end
+        })
         -- If custom placement div not found, append to end
-        table.insert(doc.blocks, info_div)
+        if not placed then
+            table.insert(doc.blocks, info_div)
+        end
         return doc
     end
     
