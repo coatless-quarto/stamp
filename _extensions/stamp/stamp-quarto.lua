@@ -139,8 +139,8 @@ function stamp_quarto.get_session_section()
     local version_info = {
         {"Quarto Version", tostring(quarto.config.version())},
         {"Pandoc Version", tostring(PANDOC_VERSION)},
-        {"R Version", stamp_system.get_version("R --version")},
-        {"Python Version", stamp_system.get_version("python --version")}
+        {"R Version", stamp_system.get_version("R")},
+        {"Python Version", stamp_system.get_version("python")}
     }
     
     for _, info in ipairs(version_info) do
