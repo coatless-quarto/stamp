@@ -70,6 +70,10 @@ function stamp_config.get_enabled_sections(meta)
     -- First check for level configuration
     if meta.stamp.level then
         local level = pandoc.utils.stringify(meta.stamp.level):lower()
+        -- "default" names the default level rather than a list of sections
+        if level == "default" then
+            level = stamp_config.LEVELS.default
+        end
         if stamp_config.LEVELS[level] then
             base_sections = stamp_config.LEVELS[level]
         else
