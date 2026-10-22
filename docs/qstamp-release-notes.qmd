@@ -10,8 +10,30 @@ format:
 
 # 0.0.0-dev.1: ?? (??-??-????)
 
+## Breaking changes
+
+- stamp now requires Quarto 1.10 or later.
+
 ## Features
 
 - Embed Quarto render information in your documents with the `{quarto-stamp}` extension.
 - Place the stamp by specifying `placement` with either: `"bottom"` (default), `"top"`, or a `"custom"` location within the document.
 - Customize the information shown by specifying the `level` and `sections` options in the YAML front matter.
+
+## Bug fixes
+
+- stamp no longer prints the contents of every `_extension.yml` to the console on each render.
+- `stamp: true` now shows the default stamp. Previously, the render failed with "attempt to index a boolean value".
+- `stamp: false` now turns the stamp off. Previously, it showed the default stamp.
+- `level: default` now shows the same sections as `level: minimal`. Previously, it showed only the "Document Information" heading.
+- `level: full` now shows the output format in the document section and the project directory in the project section. Previously, these rows never appeared. The render-tools rows are gone, because Quarto does not provide that information.
+- The extensions section now lists the installed extensions for documents in project subfolders, and no longer prints "find: _extensions: No such file or directory". It also no longer relies on the `find` command, which Windows does not have.
+- `placement` now ignores letter case, so `placement: Top` puts the stamp at the top instead of the bottom.
+- `placement: custom` now finds the `placement-id` div anywhere in the document, including inside callouts and other divs. Previously, a nested placeholder was left empty and the stamp went to the end of the document.
+- stamp no longer prints "command not found" when R or Python is not installed.
+
+## Documentation
+
+- The docs site is now titled "stamp" instead of "colab".
+- The README and FAQ now say that `level: minimal` includes the extensions section, and the README's "Customizing Section Display" example is valid YAML.
+- The FAQ now lists the section and table classes that stamp uses for styling, and warns that the environment, document, and project sections show absolute local paths.
