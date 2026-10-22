@@ -40,7 +40,7 @@ function stamp_utils.create_table(headers, rows, class_name)
    )
 end
 
--- Reads and parses a YAML file, logging the content
+-- Reads and parses a YAML file
 ---@param file_path string Path to YAML file
 ---@return table|nil Parsed YAML content or nil if file cannot be read
 function stamp_utils.read_yaml_file(file_path)
@@ -48,11 +48,10 @@ function stamp_utils.read_yaml_file(file_path)
    if f then
        local content = f:read("*all")
        f:close()
-       
-       -- Log file reading activity
-       quarto.log.output("Reading YAML file: " .. file_path)
-       quarto.log.output(content)
-       
+
+       -- Log file reading activity at debug level only
+       quarto.log.debug("Reading YAML file: " .. file_path)
+
        return tinyyaml.parse(content)
    end
    return nil
