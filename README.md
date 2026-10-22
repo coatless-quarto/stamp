@@ -139,12 +139,7 @@ stamp:
 :::
 ```
 
-## Acknowledgements
-
-We would like to thank the developers of the `tinyyaml` library for providing a simple and efficient way to parse YAML front matter in Lua. Specifically, we would like to thank the maintainer of the fork, [`@api7`](https://github.com/api7/lua-tinyyaml), and the author of the original implementation [`@peposso`](https://github.com/peposso/lua-tinyyaml).
-The `tinyyaml` library is available under the MIT license and can be found at <https://github.com/api7/lua-tinyyaml>.
-
-### Notes
+## Notes
 
 This extension is inspired by the [`sessioninfo`](https://sessioninfo.r-lib.org/) package for R. It is designed to provide detailed information about the document and the environment in which it was created to aid with creating reproducible examples (reprex). We previously discussed the idea of a "document stamp" in the [Quarto discussion forums](https://github.com/quarto-dev/quarto-cli/discussions/8559).
 
