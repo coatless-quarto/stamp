@@ -46,15 +46,16 @@ function stamp_system.get_os()
 end
 
 -- Gets version information for R or Python
----@param cmd string Command to execute to get version info
+---@param cmd string Program to run with --version ("R" or "python")
 ---@return string Version string or "not installed" if not found
 function stamp_system.get_version(cmd)
-   local handle = io.popen(cmd)
    local version = "not installed"
    
-   if handle then
-       local output = handle:read("*l")
-       handle:close()
+   -- Run the program without a shell, so a missing program is an error
+   -- here instead of "command not found" on the console
+   local ok, result = pcall(pandoc.pipe, cmd, {"--version"}, "")
+   if ok then
+       local output = result:match("[^\n]*")
        
        if output then
            -- Extract version number based on command type
