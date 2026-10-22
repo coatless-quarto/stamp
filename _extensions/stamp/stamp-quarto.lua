@@ -37,18 +37,19 @@ end
 ---@return pandoc.Row[] Array of rows containing document properties
 function stamp_quarto.get_doc_props()
     local rows = pandoc.List()
+    -- Quarto has no quarto.doc.format, so the format row reads the
+    -- target format from quarto.format.format_identifier()
     ---@type {[1]: string, [2]: any}[]
     local doc_props = {
-        {"input_file", quarto.doc.input_file},
-        {"output_file", quarto.doc.output_file},
-        {"format", quarto.doc.format},
-        {"render_tools", quarto.doc.render_tools}
+        {"quarto.doc.input_file", quarto.doc.input_file},
+        {"quarto.doc.output_file", quarto.doc.output_file},
+        {"format", quarto.format.format_identifier()["target-format"]}
     }
     
     for _, prop in ipairs(doc_props) do
         if prop[2] then
             rows[#rows + 1] = pandoc.Row({
-                pandoc.Cell({ pandoc.Div("quarto.doc." .. prop[1]) }),
+                pandoc.Cell({ pandoc.Div(prop[1]) }),
                 pandoc.Cell({ pandoc.Div(tostring(prop[2])) })
             })
         end
@@ -62,9 +63,8 @@ function stamp_quarto.get_project_props()
     local rows = pandoc.List()
     ---@type {[1]: string, [2]: any}[]
     local project_props = {
-        {"dir", quarto.project.dir},
-        {"output_directory", quarto.project.output_directory},
-        {"render_tools", quarto.project.render_tools}
+        {"directory", quarto.project.directory},
+        {"output_directory", quarto.project.output_directory}
     }
     
     for _, prop in ipairs(project_props) do
