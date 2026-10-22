@@ -323,6 +323,11 @@ end
 ---@param doc pandoc.Pandoc
 ---@return pandoc.Pandoc
 local function place_stamp(doc)
+    -- `stamp: false` turns the stamp off
+    if doc.meta.stamp == false then
+        return doc
+    end
+
     local config = read_config(doc.meta)
 
     local blocks = pandoc.Blocks({ pandoc.Header(2, pandoc.Inlines("Document Information")) })
