@@ -71,7 +71,8 @@ end
 ---@param default string Default value if key not found
 ---@return string value String value from metadata or default
 function stamp_document.get_meta_string(meta, key, default)
-    if not meta.stamp or not meta.stamp[key] then
+    -- `stamp: true` (or any non-map value) means "use the defaults"
+    if type(meta.stamp) ~= "table" or not meta.stamp[key] then
         return default
     end
     return pandoc.utils.stringify(meta.stamp[key])

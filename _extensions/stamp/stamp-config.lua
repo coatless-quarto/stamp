@@ -59,8 +59,8 @@ end
 ---@param meta table Document metadata containing stamp configuration
 ---@return string[] Array of enabled section names
 function stamp_config.get_enabled_sections(meta)
-    -- If no stamp config present, use default level
-    if not meta.stamp then
+    -- If no stamp config present (or `stamp: true`), use default level
+    if type(meta.stamp) ~= "table" then
         return stamp_config.LEVELS[stamp_config.LEVELS.default]
     end
     
