@@ -84,7 +84,7 @@ end
 function stamp_document.place_info_div(doc)
     local meta = doc.meta
     -- Get placement configuration from metadata or use defaults
-    local placement = stamp_document.get_meta_string(meta, "placement", "bottom")
+    local placement = stamp_document.get_meta_string(meta, "placement", "bottom"):lower()
     local placement_id = stamp_document.get_meta_string(meta, "placement-id", "document-information")
     
     -- Create the information div
