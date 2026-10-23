@@ -261,14 +261,19 @@ local SECTIONS = {
     }
 }
 
--- Creates one section: a heading and its table inside a classed div
+-- Creates one section: a heading and its table inside a classed div. The id
+-- (`stamp-system`, ...) comes from the section name, with a prefix so it does
+-- not collide with the author's own headings. It goes on the div, and Pandoc
+-- moves it to the heading, which has none; an id on the heading itself would
+-- make the Typst writer wrap the div in #block[] and tighten its spacing.
+---@param name string Section name, as used in `sections`
 ---@param spec StampSection
 ---@return pandoc.Div
-local function section(spec)
+local function section(name, spec)
     return pandoc.Div({
         pandoc.Header(3, pandoc.Inlines(spec.title)),
         make_table(spec.headers, spec.rows(), spec.table_class, spec.widths)
-    }, pandoc.Attr("", { spec.class }))
+    }, pandoc.Attr("stamp-" .. name, { spec.class }))
 end
 
 -- Reads the stamp options from the document metadata
@@ -333,7 +338,7 @@ local function place_stamp(doc)
     local blocks = pandoc.Blocks({ pandoc.Header(2, pandoc.Inlines("Document Information")) })
     for _, name in ipairs(ORDER) do
         if config.sections[name] then
-            blocks:insert(section(SECTIONS[name]))
+            blocks:insert(section(name, SECTIONS[name]))
         end
     end
     local info_div = pandoc.Div(blocks, pandoc.Attr("document-information"))
