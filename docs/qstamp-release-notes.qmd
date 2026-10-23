@@ -19,6 +19,7 @@ format:
 - Embed Quarto render information in your documents with the `{quarto-stamp}` extension.
 - Place the stamp by specifying `placement` with either: `"bottom"` (default), `"top"`, or a `"custom"` location within the document.
 - Customize the information shown by specifying the `level` and `sections` options in the YAML front matter.
+- Each stamp section has its own link and appears in the table of contents.
 
 ## Bug fixes
 

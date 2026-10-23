@@ -152,16 +152,16 @@ The extension adds a div with the ID `"document-information"`. You can check you
 
 ## Can I style the output?
 
-Yes. The entire stamp is contained within a div with ID `document-information`, and each section and its table have their own classes:
+Yes. The entire stamp is contained within a div with ID `document-information`, and each section and its table have their own classes. Each section also has an ID, which you can link to, as in `[Session](#stamp-session)`:
 
-| Section | Section class | Table class |
-|---------|---------------|-------------|
-| System Information | `.system-info` | `.system-info-table` |
-| Quarto Environment Variables | `.quarto-env-info` | `.quarto-env-vars` |
-| Quarto Document Properties | `.quarto-doc-info` | `.quarto-doc-props` |
-| Quarto Project Properties | `.quarto-project-info` | `.quarto-project-props` |
-| Session Information | `.session-info` | `.session-info-table` |
-| Extensions | `.extensions-info` | `.extensions-table` |
+| Section | Section ID | Section class | Table class |
+|---------|------------|---------------|-------------|
+| System Information | `#stamp-system` | `.system-info` | `.system-info-table` |
+| Quarto Environment Variables | `#stamp-environment` | `.quarto-env-info` | `.quarto-env-vars` |
+| Quarto Document Properties | `#stamp-document` | `.quarto-doc-info` | `.quarto-doc-props` |
+| Quarto Project Properties | `#stamp-project` | `.quarto-project-info` | `.quarto-project-props` |
+| Session Information | `#stamp-session` | `.session-info` | `.session-info-table` |
+| Extensions | `#stamp-extensions` | `.extensions-info` | `.extensions-table` |
 
 Example CSS:
 
