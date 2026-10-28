@@ -28,6 +28,8 @@ website:
       - section: "Extra"
         contents:
         - qstamp-release-notes.qmd
+        - href: https://blog.thecoatlessprofessor.com/projects/stamp/
+          text: "Blog posts"
 
 format: 
   html:
