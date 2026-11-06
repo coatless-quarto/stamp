@@ -145,6 +145,12 @@ This extension is inspired by the [`sessioninfo`](https://sessioninfo.r-lib.org/
 
 We hope it will be useful for debugging and reproducibility.
 
+## Learn more
+
+- [Documentation](https://quarto.thecoatlessprofessor.com/stamp/)
+- [Release notes](https://quarto.thecoatlessprofessor.com/stamp/qstamp-release-notes.html)
+- [Blog posts](https://blog.thecoatlessprofessor.com/projects/stamp/)
+
 ## License
 
 stamp is licensed under AGPL-3.0-or-later with an exception: what you write and render with stamp stays yours, along with the output, under any terms you like. See [LICENSE](LICENSE) and [LICENSE-EXCEPTION.md](LICENSE-EXCEPTION.md).
