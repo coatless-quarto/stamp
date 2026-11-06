@@ -144,3 +144,7 @@ stamp:
 This extension is inspired by the [`sessioninfo`](https://sessioninfo.r-lib.org/) package for R. It is designed to provide detailed information about the document and the environment in which it was created to aid with creating reproducible examples (reprex). We previously discussed the idea of a "document stamp" in the [Quarto discussion forums](https://github.com/quarto-dev/quarto-cli/discussions/8559).
 
 We hope it will be useful for debugging and reproducibility.
+
+## License
+
+stamp is licensed under AGPL-3.0-or-later with an exception: what you write and render with stamp stays yours, along with the output, under any terms you like. See [LICENSE](LICENSE) and [LICENSE-EXCEPTION.md](LICENSE-EXCEPTION.md).
