@@ -1,0 +1,10 @@
+---
+title: "stamp: sections added to the level"
+filters:
+  - stamp
+stamp:
+  sections:
+    - environment
+---
+
+Body text before the stamp.

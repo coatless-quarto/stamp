@@ -1,0 +1,9 @@
+---
+title: "stamp: level default"
+filters:
+  - stamp
+stamp:
+  level: default
+---
+
+Body text before the stamp.

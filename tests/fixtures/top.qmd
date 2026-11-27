@@ -1,0 +1,9 @@
+---
+title: "stamp: placement top"
+filters:
+  - stamp
+stamp:
+  placement: TOP
+---
+
+Body text before the stamp.

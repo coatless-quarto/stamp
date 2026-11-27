@@ -1,0 +1,7 @@
+---
+title: "stamp: defaults"
+filters:
+  - stamp
+---
+
+Body text before the stamp.

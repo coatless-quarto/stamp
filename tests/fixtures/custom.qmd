@@ -1,0 +1,19 @@
+---
+title: "stamp: custom placement"
+filters:
+  - stamp
+stamp:
+  placement: custom
+  placement-id: here
+---
+
+Text before the placeholder.
+
+::: {.outer}
+Inside a div.
+
+::: {#here}
+:::
+:::
+
+Text after the placeholder.

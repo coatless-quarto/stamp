@@ -1,0 +1,9 @@
+---
+title: "stamp: level full"
+filters:
+  - stamp
+stamp:
+  level: full
+---
+
+Body text before the stamp.
