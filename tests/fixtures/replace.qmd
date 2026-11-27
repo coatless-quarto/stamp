@@ -1,0 +1,10 @@
+---
+title: "stamp: mode replace"
+filters:
+  - stamp
+stamp:
+  sections: document
+  mode: replace
+---
+
+Body text before the stamp.

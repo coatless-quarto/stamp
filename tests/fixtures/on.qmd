@@ -1,0 +1,8 @@
+---
+title: "stamp: stamp true"
+filters:
+  - stamp
+stamp: true
+---
+
+Body text before the stamp.

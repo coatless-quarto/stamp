@@ -1,0 +1,7 @@
+---
+title: "stamp: a page in a project subfolder"
+filters:
+  - stamp
+---
+
+Body text before the stamp.
